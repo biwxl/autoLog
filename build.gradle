@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '1.1.2'
+}
+
+
+repositories {
+    maven {
+        url 'https://maven.aliyun.com/repository/public/'
+    }
+    maven{
+        url 'https://maven.aliyun.com/repository/google/'
+    }
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.jetbrains.intellij'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+//    需要来填写publish这块 类似
+//    publish {
+//        username 'AmailP'
+//        pluginId '7415'
+//    }
+
+
+intellij {
+//    IC-2016.1
+//    version 'IU-2018.3' //IntelliJ IDEA dependency
+
+    pluginName.set('autoLog')
+    version.set('2018.3')
+    type.set('IC')
+    downloadSources.set(true)
+    updateSinceUntilBuild.set(false)
+//    plugins.set('coverage') //Bundled plugin dependencies
+//    sandboxDirectory.set('sandbox')
+//
+    plugins = ['Kotlin', 'org.nik.presentation-assistant:1.0.1', 'Lombook Plugin:0.31-2018.3', 'Groovy']
+//
+//    sandboxDirectory.set('sandbox')
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    // https://mvnrepository.com/artifact/org.assertj/assertj-core
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.12.2'
+
+    compile group: 'uk.com.robust-it', name: 'cloning', version: '1.9.3'
+
+}
+
+group 'com.bruce.intellijplugin'
+version '2.8.4'
